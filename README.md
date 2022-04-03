@@ -7,7 +7,7 @@ This project is deployed using Kubernetes, so apply the following secret before 
 apiVersion: v1
 kind: Secret
 metadata:
-  name: wemoux-bot-config
+    name: wemoux-bot-config
 type: Opaque
 stringData:
     DISCORD_TOKEN: 'bot_token'
