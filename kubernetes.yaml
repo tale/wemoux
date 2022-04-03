@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: wemoux-bot
+spec:
+  selector:
+    matchLabels:
+      app: wemoux-bot
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: wemoux-bot
+    spec:
+      imagePullSecrets:
+      - name: aerum-registry
+      containers:
+      - image: aerum.co/bots/wemoux
+        name: wemoux-bot
+        env:
+        - name: DISCORD_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: wemoux-bot-config
+              key: DISCORD_TOKEN
+        - name: LOG_OF_LAG_ID
+          valueFrom:
+            secretKeyRef:
+              name: wemoux-bot-config
+              key: LOG_OF_LAG_ID
+
