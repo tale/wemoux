@@ -1,3 +1,26 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: wemoux-pv
+spec:
+  capacity:
+    storage: 125M
+  accessModes:
+  - ReadWriteMany
+  hostPath:
+    path: /srv/wemoux
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: wemoux-pvc
+spec:
+  accessModes:
+  - ReadWriteMany
+  resources:
+    requests:
+      storage: 125M
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -29,4 +52,11 @@ spec:
             secretKeyRef:
               name: wemoux-bot-config
               key: LOG_OF_LAG_ID
+        volumeMounts:
+        - mountPath: /bot/
+          name: config-mount
+      volumes:
+      - name: config-mount
+        persistentVolumeClaim:
+          claimName: wemoux-pvc
 

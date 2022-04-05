@@ -18,13 +18,13 @@ class Storage {
 }
 
 Future<void> updateStore(Storage store) async {
-	final handle = File('config.json');
+	final handle = File('/bot/config.json');
 	await handle.writeAsString(jsonEncode(store));
 	return;
 }
 
 Future<Storage> getLatestStore() async {
-	final handle = File('config.json');
+	final handle = File('/bot/config.json');
 	final exists = await handle.exists();
 
 	if (!exists) {
