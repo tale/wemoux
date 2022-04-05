@@ -20,6 +20,7 @@ jobs:
     - name: Push to aerum.co
       run: docker push aerum.co/bots/wemoux
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
     - name: Authorize Cluster
