@@ -5,9 +5,14 @@ RUN dart pub get
 
 COPY . .
 RUN dart pub get --offline
-RUN dart compile exe bin/wemoux.dart -o bin/wemoux
+RUN dart compile exe bin/wemoux.dart -o /app/wemoux
+RUN ls /app/bin
 
-FROM scratch
+FROM alpine
 COPY --from=build /runtime/ /
-COPY --from=build /app/bin/wemoux /app/bin
-CMD [ "/app/bin/wemoux" ]
+COPY --from=build /app/wemoux /app
+RUN apk add --no-cache tzdata \
+	&& cp /usr/share/zoneinfo/America/New_York /etc/localtime \
+	&& echo America/New_York > /etc/timezone
+ENV TZ=America/New_York
+ENTRYPOINT [ "/app" ]
