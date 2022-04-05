@@ -1,4 +1,4 @@
-name: Docker Image CI
+name: Deployment
 
 on:
   workflow_dispatch:
@@ -19,4 +19,19 @@ jobs:
         password: ${{ secrets.DOCKER_PASSWORD }}
     - name: Push to aerum.co
       run: docker push aerum.co/bots/wemoux
-    
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Authorize Cluster
+      uses: actions-hub/kubectl@master
+      env:
+        KUBE_CONFIG: ${{ secrets.KUBECTL_CONFIG }}
+    - name: Redeploy Manifest
+      uses: actions-hub/kubectl@master
+      with:
+        args: apply -f $GITHUB_WORKSPACE/kubernetes.yaml
+    - name: Restart Deployment
+      uses: actions-hub/kubectl@master
+      with:
+        args: rollout restart deployment/wemoux-bot
+
