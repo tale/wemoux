@@ -30,8 +30,8 @@ void main() {
 			final channel = await bot.fetchChannel<ITextGuildChannel>(Snowflake(logOfLagId()));
 			final embed = EmbedBuilder()
 				..addField(
-					name: '**Day ${store.currentDate}**: It\'s currently $dateString',
-					content: '[Yesterday\'s Log](${store.lastNotify})',
+					name: 'Day ${store.currentDate}   <:fr:879879477138706472>',
+					content: 'It\'s currently $dateString\n[Yesterday\'s Log](${store.lastNotify})',
 					inline: true
 				)
 				..color = DiscordColor.azure;
