@@ -31,7 +31,7 @@ void main() {
 			final embed = EmbedBuilder()
 				..addField(
 					name: 'Day ${store.currentDate}   <:fr:879879477138706472>',
-					content: 'It\'s currently $dateString\n[Yesterday\'s Log](${store.lastNotify})',
+					content: '$dateString\n[Yesterday\'s Log](${store.lastNotify})',
 					inline: true
 				)
 				..color = DiscordColor.azure;
