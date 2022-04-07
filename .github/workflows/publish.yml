@@ -24,15 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Authorize Cluster
-      uses: actions-hub/kubectl@master
+      uses: tale/kubectl-action@v1
       env:
-        KUBE_CONFIG: ${{ secrets.KUBECTL_CONFIG }}
+        base64-kube-config: ${{ secrets.KUBECTL_CONFIG }}
+        kubectl-verion: v1.22.4
     - name: Redeploy Manifest
-      uses: actions-hub/kubectl@master
-      with:
-        args: apply -f $GITHUB_WORKSPACE/kubernetes.yaml
+      run: kubectl apply -f $GITHUB_WORKSPACE/kubernetes.yaml
     - name: Restart Deployment
-      uses: actions-hub/kubectl@master
-      with:
-        args: rollout restart deployment/wemoux-bot
+      run: kubectl rollout restart deployment/wemoux-bot
 
