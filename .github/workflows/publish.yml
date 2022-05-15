@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Authorize Cluster
-      uses: tale/kubectl-action@v1
+      uses: tale/kubectl-action@v1.0.2
       env:
         base64-kube-config: ${{ secrets.KUBECTL_CONFIG }}
         kubectl-verion: v1.22.4
