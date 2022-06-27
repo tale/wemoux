@@ -25,9 +25,11 @@ jobs:
     steps:
     - name: Authorize Cluster
       uses: tale/kubectl-action@main
-      env:
+      with:
         base64-kube-config: ${{ secrets.KUBECTL_CONFIG }}
         kubectl-version: v1.22.4
+    - name: Checkout Git Repository
+      uses: actions/checkout@v3
     - name: Redeploy Manifest
       run: kubectl apply -f $GITHUB_WORKSPACE/kubernetes.yaml
     - name: Restart Deployment
