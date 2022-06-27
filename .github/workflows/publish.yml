@@ -27,7 +27,7 @@ jobs:
       uses: tale/kubectl-action@main
       env:
         base64-kube-config: ${{ secrets.KUBECTL_CONFIG }}
-        kubectl-verion: v1.22.4
+        kubectl-version: v1.22.4
     - name: Redeploy Manifest
       run: kubectl apply -f $GITHUB_WORKSPACE/kubernetes.yaml
     - name: Restart Deployment
